@@ -1,0 +1,60 @@
+ <style type="text/css">
+.blankdiv{background-color:#000;
+position:fixed;
+z-index: 9001;
+top:0px; height:100%;
+left:0px;
+width:100%; opacity: 0.65;
+filter:alpha(opacity=65);}
+
+#pclose{background-image: url("<?php echo $this->getSkinURl('images/close.png'); ?>");
+    background-position: left top;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 25px;
+    margin: 5% auto -6%;
+    position: relative;
+    right: -348px;
+    text-indent: -9999px;
+    top: 0;
+    width: 25px;
+    z-index: 9999;}
+</style>
+<h4><?php echo $this->__('Module List') ?></h4>
+ <?php
+                /*
+                    This shows how to load multiple rows in a collection and save a change to them.
+                    1) The setPageSize function will load only 5 records per page and you can set the current Page with the setCurPage function.
+                    2) The $collection->walk('save') allows you to save everything in the collection after all changes have been made.
+                */
+            
+                $i = 0;
+                
+                $collection = Mage::getModel('video/video')->getCollection();
+                $collection->setPageSize(15);
+                $collection->setCurPage(2);
+                $size = $collection->getSize();
+                $cnt = count($collection);
+                $z=1;  foreach ($collection as $item) {
+                    $i = $i+1;
+                  
+                    $item->setTitle($i);
+                    $item1=   $item->getContent();
+                 $cat = str_replace("http://www.youtube.com/watch?v=", "", $item1);
+                ?>
+                         <div style="margin:5px; float:left;">
+<a href="javascript:void(0)" id="apply" onclick="javascript:document.getElementById('popupform<?php echo $z; ?>').style.display='block';"><img src="http://img.youtube.com/vi/<?php echo $cat; ?>/0.jpg" height="160" width="165" /></a>
+</div>
+<div id="popupform<?php echo $z; ?>" style="display:none; height: 100%; left: 0; padding: 15px; position: fixed; top: 0; width:97%; z-index: 10001; ">
+  <div class="blankdiv"></div>
+  <div id="pclose" onclick="javascript:document.getElementById('popupform<?php echo $z; ?>').style.display='none';">close</div>
+    <div class="applyform" style="position:relative; overflow:auto; background-color:#fff; width:670px; height:500px;  margin:5% auto auto auto; z-index: 9002; padding:10px; border:10px solid #7F3814; ">
+		<p id="contactArea">
+	<iframe width="670" height="500" src="//www.youtube.com/embed/<?php echo $cat; ?>?autoplay=1"" frameborder="0" allowfullscreen></iframe> 
+		</p>
+	</div>
+ </div>
+               <?php  $z++;}
+
+                $collection->walk('save');
+         ?> 

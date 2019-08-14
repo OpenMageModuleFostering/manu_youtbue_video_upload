@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Manu_youtbue_video_upload",
+    "type": "magento-module",
+    "license": "OSL",
+    "homepage": "",
+    "description": "With Video upload extension you can easy add video on your website. ",
+    "authors": [
+    {
+        "name": "Manvendra Sharma",
+        "email": "sharmamanvendra6@gmail.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

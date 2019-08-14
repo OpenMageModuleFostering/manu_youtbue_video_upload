@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <video_index_index>
+        <reference name="content">
+            <block type="video/video" name="video" template="video/video.phtml" />
+        </reference>
+    </video_index_index>
+</layout> 
