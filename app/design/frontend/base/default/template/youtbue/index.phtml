@@ -1,0 +1,267 @@
+Video Gallery
+
+<?php $enabled = $this->getYoutbuevideouploadEnabled();   ?>
+<?php $videoimagesheight = $view=$this->getYoutbuevideouploadimageheight();   ?>
+<?php $videoimageswidth =  $view=$this->getYoutbuevideouploadimagewidth();   ?>
+<?php $videoheight = $view=$this->getYoutbuevideouploadvideohight();   ?>
+<?php $videowidth = $view=$this->getYoutbuevideouploadvideowidth();   ?>
+<?php $description = $view=$this->getYoutbuevideouploaddescription();   ?>
+<?php $pagination = $view=$this->getYoutbuevideouploadpagination();   ?>
+<?php $onerowitem = $view=$this->getYoutbuevideouploadonerowitem();   ?>
+<?php $productsperpage = $view=$this->getYoutbuevideouploadproductsperpage();   ?>
+<?php $popupspeed = $view=$this->getYoutbuevideouploadpopupspeed();   ?>
+
+
+
+
+
+<?php
+/* Enable /Disble .................................Start  */
+ if($enabled==1) { ?>
+
+<?php $cssurl =  str_replace('index.php/','',$this->getUrl());?>
+<script src="<?php echo $cssurl.'skin/frontend/base/default/youtubegallery/jquery-1.2.6.noConflict.min.js'; ?>" type="text/javascript" ></script>
+
+
+<script type="text/javascript" src="http://www.youtube.com/player_api"></script>
+<script>
+var player;
+function onYouTubePlayerAPIReady() {
+<?php for($mksxx=1;$mksxx<100;$mksxx++){ ?>
+player<?php echo $mksxx; ?> = new YT.Player('player<?php echo $mksxx; ?>');
+<?php } ?>
+} 
+</script>
+
+<script type="text/javascript">
+
+jqr=jQuery.noConflict();
+function applyto(id) {
+var c= '#mks'+id
+jqr(c).fadeIn(<?php echo $popupspeed; ?>);
+}
+
+function applytoprev(x,y) {
+jqr('#mks'+x).hide();
+jqr('#mks'+y).show();
+<?php for($mksxx=1;$mksxx<100;$mksxx++){ ?>
+player<?php echo $mksxx; ?>.stopVideo();
+<?php } ?>
+}
+
+function applytonext(x,y) {
+jqr('#mks'+x).hide();
+jqr('#mks'+y).show();
+<?php for($mksxx=1;$mksxx<100;$mksxx++){ ?>
+player<?php echo $mksxx; ?>.stopVideo();
+<?php } ?>
+}
+
+
+function pclose(x)
+{
+jqr('#mks'+x).hide();
+}
+
+</script>
+
+
+ 
+<style type="text/css">
+.blankdiv{background-color:#000;
+position:fixed;
+z-index: 9001;
+top:0px; height:100%;
+left:0px;
+width:100%; opacity: 0.65;
+filter:alpha(opacity=65);}
+
+#popupform{height: 100%;
+    left: 0;
+    padding: 15px;
+    position: fixed;
+    top: 0;
+    width:97%;
+    z-index: 10001; 
+	}
+	
+#popupform .applyform{position:relative; overflow:auto;
+background-color:#fff;
+width:<?php echo $videowidth+10; ?>px;
+height:<?php echo $videoheight+10; ?>px;  margin:5% auto auto auto;
+z-index: 9002; padding:10px; border:10px solid #7F3814; }
+
+
+#pclose{
+   
+  
+    cursor: pointer;
+    height: 25px;
+    margin: 5% auto -6%;
+    position: relative;
+    right: -276px;
+  
+    top: 0;
+    width: 25px;
+    z-index: 9999;}
+</style>
+<?php
+$connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+
+
+$sql = $connection->query("select * from manvvideogallery");
+$nr = $connection->fetchOne( 'SELECT COUNT(*) AS count FROM manvvideogallery' );
+//$sql = mysql_query("SELECT * FROM imagegallery");
+
+//echo $nr = mysql_num_rows($sql); // Get total of Num rows from the database query
+if (isset($_GET['pn'])) { // Get pn from URL vars if it is present
+    $pn = preg_replace('#[^0-9]#i', '', $_GET['pn']); // filter everything but numbers for security(new)
+  
+} else { 
+    $pn = 1;
+}
+
+if($pagination==1) {
+$itemsPerPage = $productsperpage;
+} else { $itemsPerPage = 10000; }
+
+$lastPage = ceil($nr / $itemsPerPage);
+
+if ($pn < 1) { // If it is less than 1
+    $pn = 1; // force if to be 1
+} else if ($pn > $lastPage) { // if it is greater than $lastpage
+    $pn = $lastPage; // force it to be $lastpage's value
+}
+// This creates the numbers to click in between the next and back buttons
+// This section is explained well in the video that accompanies this script
+$centerPages = "";
+$sub1 = $pn - 1;
+$sub2 = $pn - 2;
+$add1 = $pn + 1;
+$add2 = $pn + 2;
+if ($pn == 1) {
+    $centerPages .= '&nbsp; <span class="pagNumActive">' . $pn . '</span> &nbsp;';
+    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $add1 . '">' . $add1 . '</a> &nbsp;';
+} else if ($pn == $lastPage) {
+    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $sub1 . '">' . $sub1 . '</a> &nbsp;';
+    $centerPages .= '&nbsp; <span class="pagNumActive">' . $pn . '</span> &nbsp;';
+} else if ($pn > 2 && $pn < ($lastPage - 1)) {
+    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $sub2 . '">' . $sub2 . '</a> &nbsp;';
+    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $sub1 . '">' . $sub1 . '</a> &nbsp;';
+    $centerPages .= '&nbsp; <span class="pagNumActive">' . $pn . '</span> &nbsp;';
+    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $add1 . '">' . $add1 . '</a> &nbsp;';
+    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $add2 . '">' . $add2 . '</a> &nbsp;';
+} else if ($pn > 1 && $pn < $lastPage) {
+    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $sub1 . '">' . $sub1 . '</a> &nbsp;';
+    $centerPages .= '&nbsp; <span class="pagNumActive">' . $pn . '</span> &nbsp;';
+    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $add1 . '">' . $add1 . '</a> &nbsp;';
+}
+// This line sets the "LIMIT" range... the 2 values we place to choose a range of rows from database in our query
+$limit = 'LIMIT ' .($pn - 1) * $itemsPerPage .',' .$itemsPerPage;
+// Now we are going to run the same query as above but this time add $limit onto the end of the SQL syntax
+// $sql2 is what we will use to fuel our while loop statement below
+//$sql2 = mysql_query("SELECT * from imagegallery ORDER BY imagegallery_id ASC $limit");
+$sql2 = $connection->query("select * from manvvideogallery ORDER BY id ASC $limit");
+
+$paginationDisplay = ""; // Initialize the pagination output variable
+// This code runs only if the last page variable is ot equal to 1, if it is only 1 page we require no paginated links to display
+if ($lastPage != "1"){
+    // This shows the user what page they are on, and the total number of pages
+    $paginationDisplay .= 'Page <strong>' . $pn . '</strong> of ' . $lastPage. '&nbsp;  &nbsp;  &nbsp; ';
+    // If we are not on page 1 we can place the Back button
+    if ($pn != 1) {
+        $previous = $pn - 1;
+        $paginationDisplay .=  '&nbsp;  <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $previous . '"> Back</a> ';
+    }
+    // Lay in the clickable numbers display here between the Back and Next links
+    $paginationDisplay .= '<span class="paginationNumbers">' . $centerPages . '</span>';
+    // If we are not on the very last page we can place the Next button
+    if ($pn != $lastPage) {
+        $nextPage = $pn + 1;
+        $paginationDisplay .=  '&nbsp;  <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $nextPage . '"> Next</a> ';
+    }
+}
+?>
+
+ 
+<div style="margin-left:64px; margin-right:64px;">
+<h2>Total Items: <?php echo $nr; ?></h2>
+</div>
+ 
+<?php if($pagination==1) { ?>
+<div style="margin-left:58px; margin-right:58px; padding:6px; background-color:#FFF; border:#999 1px solid;"><?php echo $paginationDisplay; ?></div>
+<?php } ?>
+<table>
+<tr>
+<?php 
+$outputList = '';
+$vz=1;
+while($row1 = $sql2->fetch())
+{
+$id = $row1["id"];
+$urlx = $row1["url"];
+$urlvideo = substr(strstr($urlx, 'watch?v='),8,1000);
+?>
+<td>
+<div style="margin-left:64px;float:left;">
+<a href="javascript:void(0)"  onclick="applyto('<?php echo $vz; ?>')">
+<img src="http://img.youtube.com/vi/<?php echo $urlvideo; ?>/0.jpg" height="<?php echo $videoimagesheight; ?>" width="<?php echo $videoimageswidth; ?>" style="padding:10px;"/>
+</a> 
+</div>
+
+<div id="mks<?php echo $vz; ?>" style="display:none">
+<div id="popupform">
+<div class="blankdiv"></div>
+<div id="pclose"  onclick="player<?php echo $vz; ?>.stopVideo();">
+<img src="<?php echo $cssurl.'skin/frontend/base/default/youtubegallery/close.png'; ?>" onclick="pclose(<?php echo $vz; ?>);"/>
+</div>
+<div class="applyform">
+<p id="contactArea">
+<table class="videopopup">
+<tr>
+<td align="left"><a href="javascript:void(0)"  onclick="applytoprev('<?php echo $vz; ?>' ,'<?php echo $vz-1; ?>')"><img src="<?php echo $cssurl.'skin/frontend/base/default/youtubegallery/left_1.png'; ?>" /></a></td>
+<td align="right"><a style="float:right;" href="javascript:void(0)"  onclick="applytonext('<?php echo $vz; ?>' ,'<?php echo $vz+1; ?>')"><img src="<?php echo $cssurl.'skin/frontend/base/default/youtubegallery/right_1.png'; ?>" /></a></td>
+</tr>
+<tr>
+<td colspan="2">
+<center>
+
+<iframe width="<?php echo $videowidth; ?>" height="<?php echo $videoheight-40; ?>" id="player<?php echo $vz; ?>" src="http://www.youtube.com/embed/<?php echo $urlvideo; ?>?enablejsapi=1&wmode=transparent<?php if($autoplay==1){ echo '&autoplay=1';} ?>" wmode="Opaque" frameborder="0" allowfullscreen></iframe>
+
+<?php /*?><iframe id="mksv<?php echo $vz; ?>" width="<?php echo $videowidth; ?>" height="<?php echo $videoheight-40; ?>" 
+src="//www.youtube.com/embed/<?php echo $urlvideo; ?>?wmode=transparent&enablejsapi=1<?php if($autoplay==1){ echo '&autoplay=1';} ?>" frameborder="0" wmode="Opaque" allowfullscreen></iframe><?php */?>
+</center>
+</td>
+</tr>
+</table>
+</p>
+</div>
+</div>
+</div>
+</td>
+
+ 
+<?php
+if($vz%$onerowitem==0)
+{
+echo '</tr><tr>';
+} ?>
+
+<?php  $vz++; }  ?>
+</tr>
+</table>
+ 
+      
+
+
+<?php
+/* Enable /Disble .................................End  */
+ } else { ?>
+
+<h1 style="color:red;">Enable ( MKS VIDEO GALLERY ) Module via Admin = System -> Configuration-> Configurable Setting </h1>
+
+<?php } ?>
+
+
+ 
+

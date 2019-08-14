@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
     <name>Manu_youtbue_video_upload</name>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
     <stability>stable</stability>
     <license>OSL</license>
     <channel>community</channel>
@@ -11,8 +11,8 @@
     <notes>Video upload extension allow to video. video Gallery allow to play your youtube video gallery on your website </notes>
     <authors><author><name>Manvendra Sharma</name><user>sharmamanvendra</user><email>sharmamanvendra6@gmail.com</email></author></authors>
     <date>2014-04-11</date>
-    <time>10:54:54</time>
-    <contents><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="youtbuevideoupload.xml" hash=""/></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="youtbuevideoupload.xml" hash=""/></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Manu_Youtbuevideoupload.xml" hash=""/></dir></target></contents>
+    <time>13:01:27</time>
+    <contents><target name="magecommunity"><dir name="Manv"><dir name="Youtbue"><dir><dir name="Block"><dir name="Adminhtml"><dir name="Youtbue"><dir name="Edit"><file name="Form.php" hash="0bb4517bc8d05a61e502c7e38eb08d10"/><dir name="Tab"><file name="Form.php" hash="22163826de086176c2f7929975b4bbdb"/></dir><file name="Tabs.php" hash="522d80651cc38d3836046f75206f6020"/></dir><file name="Edit.php" hash="1d796ce870671735002225c2048bbd2f"/><file name="Grid.php" hash="48f176ea44dda1e99bf4cfc2e18bc2e2"/></dir><file name="Youtbue.php" hash="3a608e882c79c6d50327ebd8bdb2ed8f"/></dir><file name="Index.php" hash="24276b26ea08ba1355e57245a073c19f"/></dir><dir name="Helper"><file name="Data.php" hash="a46f1b5488b1be38d8e288d2b1f5b3fa"/></dir><dir name="Model"><dir name="Mysql4"><dir name="Youtbue"><file name="Collection.php" hash="cc634781acd69afa9808426e114600be"/></dir><file name="Youtbue.php" hash="e77ce2dc47088e0a777a7054dc02cc7a"/></dir><file name="Youtbue.php" hash="698d7b5438bd744735309abbd13e6cfd"/></dir><dir name="controllers"><dir name="Adminhtml"><file name="YoutbueController.php" hash="9a502979772345867bacb7509bf73a19"/></dir><file name="IndexController.php" hash="c6334184a5d7edd8c00582731e5301b4"/></dir><dir name="etc"><file name="adminhtml.xml" hash="90bf74e773c7156a896e2b5a39947074"/><file name="config.xml" hash="44d8bca2a8f978b47767aa81aaf69e7d"/><file name="system.xml" hash="b04be132598b8f7aaedc2393fc472858"/></dir><dir name="sql"><dir name="youtbue_setup"><file name="mysql4-install-1.1.3.php" hash="ae86fa447f20c1092bde15bd5aee6107"/></dir></dir></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="youtbue.xml" hash="df758207cc2c4fd27e53752021042dea"/></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="youtbue.xml" hash="2ed4312797293cc2e1dfe7342e090ed4"/></dir><dir name="template"><dir name="youtbue"><file name="index.phtml" hash="69dd37a3b31806e767b98b2f047352d8"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Manv_Youtbue.xml" hash="ad073d6e4e81de85b172d5cbb86fba33"/></dir></target></contents>
     <compatible/>
-    <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php></required></dependencies>
+    <dependencies><required><php><min>5.1.0</min><max>6.1.0</max></php></required></dependencies>
 </package>

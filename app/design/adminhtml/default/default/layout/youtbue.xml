@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <youtbue_adminhtml_youtbue_index>
+	<reference name="content">
+	  <block type="youtbue/adminhtml_youtbue" name="youtbue" />
+	</reference>
+  </youtbue_adminhtml_youtbue_index>
+</layout>
