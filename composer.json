@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Manu_youtbue_video_upload",
+    "name": "OpenMageModuleFostering\/Manu_youtbue_video_upload",
     "type": "magento-module",
     "license": "OSL",
     "homepage": "",
     "description": "Video upload extension allow to video. video Gallery allow to play your youtube video gallery on your website ",
     "authors": [
-    {
-        "name": "Manvendra Sharma",
-        "email": "sharmamanvendra6@gmail.com"
-    }
-],
+        {
+            "name": "Manvendra Sharma",
+            "email": "sharmamanvendra6@gmail.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
